@@ -133,6 +133,10 @@ function HistoryReportContent() {
     ),
     userInputs: [
       {
+        label: 'Number of Bolts',
+        value: `${bolt.userInputData.numberOfBolts ?? 'N/A'}`,
+      },
+      {
         label: 'Plate Thickness',
         value: `${bolt.userInputData.plateThickness.toFixed(2)} mm`,
       },

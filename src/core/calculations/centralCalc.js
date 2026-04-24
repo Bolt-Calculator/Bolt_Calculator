@@ -12,14 +12,21 @@ export default function centralCalculations(
 
   try {
     // 1. caclulation phase 1: pre calculations
-    // 2. Main calculations
-    userData = { youngsModulus: 21000, ...userData };
+
+    userData = {
+      youngsModulus: 21000,
+      extLoadPerBolt: userData.externalLoad / userData.numberOfBolts,
+      latLoadPerBolt: userData.lateralLoad / userData.numberOfBolts,
+      ...userData,
+    };
 
     console.log('[centralCalc] Running pre-calculations...');
+
     const preCalcResults = preCalculation(userData, curBolt, curBoltProperty);
     console.log('[centralCalc] Pre-calculations complete');
 
     console.log('[centralCalc] Running main calculations...');
+    // 2. Main calculations
     const mainResults = mainCalculation(
       userData,
       curBolt,
@@ -30,7 +37,7 @@ export default function centralCalculations(
 
     const obtainedValues = {
       ...mainResults,
-      preLoad: userData.preLoad,
+      preLoad: userData.preLoad, // TO BE CHANGED
     };
 
     console.log('[centralCalc] Running limit calculations...');
@@ -67,7 +74,7 @@ function limitCalculation(userData, curBolt, preCalcResults) {
     0.7 * preCalcResults.yeildStrength * curBolt.tensileStressArea;
 
   // 6. separation load
-  const separationLoad = userData.externalLoad;
+  const separationLoad = userData.extLoadPerBolt * 0.6;
 
   return {
     tensileStress,
@@ -120,7 +127,7 @@ function mainCalculation(userData, curBolt, curBoltProperty, preCalcResults) {
       F'b = preload + (0.06 + External load)
       tensileStress = F'b / tensile stress area
   */
-  const forceTensile = userData.preLoad + 0.06 * userData.externalLoad;
+  const forceTensile = userData.preLoad + 0.06 * userData.extLoadPerBolt;
   const tensileStress = forceTensile / curBolt.tensileStressArea;
 
   /* 
@@ -129,14 +136,15 @@ function mainCalculation(userData, curBolt, curBoltProperty, preCalcResults) {
     shear stress = external load / shank area 
   */
   const shankArea = (Math.PI / 4) * curBolt.nominalDiameter ** 2;
-  const shearStress = userData.externalLoad / shankArea;
+  const shearStress = userData.extLoadPerBolt / shankArea;
 
   /*
   3. Bearing stress on plate 
     stress = external load / (bolt diameter * plate thickness)
   */
   const plateBearingStress =
-    userData.externalLoad / (curBolt.nominalDiameter * userData.plateThickness);
+    userData.extLoadPerBolt /
+    (curBolt.nominalDiameter * userData.plateThickness);
 
   /*
   4. Thread shear stress 
@@ -167,7 +175,7 @@ function mainCalculation(userData, curBolt, curBoltProperty, preCalcResults) {
   */
   const inertiaBending = (Math.PI / 64) * curBolt.nominalDiameter ** 4;
   const deformation =
-    (userData.lateralLoad * preCalcResults.boltTensileLength ** 3) /
+    (userData.latLoadPerBolt * preCalcResults.boltTensileLength ** 3) /
     (3 * userData.youngsModulus * inertiaBending);
 
   /*
@@ -193,7 +201,7 @@ function mainCalculation(userData, curBolt, curBoltProperty, preCalcResults) {
   */
   const boltLoad = userData.preLoad + loadDistribution;
   const plateLoad =
-    userData.preLoad - (1 - loadDistribution) * userData.externalLoad;
+    userData.preLoad - (1 - loadDistribution) * userData.extLoadPerBolt;
 
   /*
   11. deflection under service load 

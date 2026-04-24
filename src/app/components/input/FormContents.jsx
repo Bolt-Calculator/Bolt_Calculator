@@ -19,6 +19,34 @@ export default function FormContents({
           <div className="space-y-6">
             <div className="group">
               <label className="flex items-center justify-between text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <span>Number of Bolts</span>
+                <InfoTooltip>
+                  Total number of bolts sharing the joint load.
+                  <br />
+                  This value is passed to the backend for processing and must be
+                  a whole number greater than zero.
+                </InfoTooltip>
+              </label>
+              <div className="relative">
+                <input
+                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all dark:text-slate-100"
+                  placeholder="4"
+                  type="number"
+                  name="numberOfBolts"
+                  min="1"
+                  step="1"
+                  value={formData.numberOfBolts}
+                  onChange={onInputChange}
+                  required
+                />
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                  count
+                </span>
+              </div>
+            </div>
+
+            <div className="group">
+              <label className="flex items-center justify-between text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 <span>Plate Thickness</span>
                 <InfoTooltip>
                   Thickness of the clamped member stack contributing to joint

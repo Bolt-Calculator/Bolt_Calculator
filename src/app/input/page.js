@@ -24,6 +24,7 @@ export default function InputPage() {
     setIsMobileMenuOpen,
   } = useResult();
   const [formData, setFormData] = useState({
+    numberOfBolts: '',
     plateThickness: '',
     engagedThreadLength: '',
     externalLoad: '',
@@ -59,6 +60,7 @@ export default function InputPage() {
 
     // Convert string values to numbers for API
     const numericData = {
+      numberOfBolts: parseInt(formData.numberOfBolts, 10),
       plateThickness: parseFloat(formData.plateThickness),
       engagedThreadLength: parseFloat(formData.engagedThreadLength),
       externalLoad: parseFloat(formData.externalLoad),
@@ -127,6 +129,7 @@ export default function InputPage() {
 
   const handleReset = () => {
     setFormData({
+      numberOfBolts: '',
       plateThickness: '',
       engagedThreadLength: '',
       externalLoad: '',
@@ -170,7 +173,7 @@ export default function InputPage() {
           {/* Form Content */}
           <div className="p-4 sm:p-6 mt-2 md:p-8 max-w-6xl mx-auto w-full">
             {errorMessage && (
-              <div className="mb-6 rounded-2xl border border-amber-200/70 dark:border-amber-900/60 bg-gradient-to-br from-amber-50/90 via-amber-50/60 to-amber-100/60 dark:from-amber-950/40 dark:via-amber-900/20 dark:to-amber-800/20 px-4 py-3 text-amber-900 dark:text-amber-200 shadow-lg shadow-amber-100/40 dark:shadow-amber-950/30 backdrop-blur">
+              <div className="mb-6 rounded-2xl border border-amber-200/70 dark:border-amber-900/60 bg-linear-to-br from-amber-50/90 via-amber-50/60 to-amber-100/60 dark:from-amber-950/40 dark:via-amber-900/20 dark:to-amber-800/20 px-4 py-3 text-amber-900 dark:text-amber-200 shadow-lg shadow-amber-100/40 dark:shadow-amber-950/30 backdrop-blur">
                 <div className="flex items-start gap-3">
                   <span className="text-lg leading-none">⚠️</span>
                   <p className="text-sm font-medium leading-relaxed">

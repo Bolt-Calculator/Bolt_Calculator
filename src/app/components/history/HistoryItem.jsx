@@ -18,6 +18,14 @@ export default function HistoryItem({ item, index, formatDate, onViewReport }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100 dark:border-white/5">
             <div>
               <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">
+                Number of Bolts
+              </p>
+              <p className="text-sm font-semibold dark:text-slate-200">
+                {item.userInputData.numberOfBolts ?? 'N/A'}
+              </p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">
                 Plate Thickness
               </p>
               <p className="text-sm font-semibold dark:text-slate-200">

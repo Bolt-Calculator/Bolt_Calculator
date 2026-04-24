@@ -330,6 +330,16 @@ const PDFDocument = ({ data }) => {
                 </View>
                 <View style={styles.tableRow}>
                   <View style={{ flex: 2 }}>
+                    <Text style={styles.tableCell}>Number of Bolts</Text>
+                  </View>
+                  <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                    <Text style={[styles.tableCell, styles.tableCellBold]}>
+                      {formatNumber(userData?.numberOfBolts, 0)}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.tableRow}>
+                  <View style={{ flex: 2 }}>
                     <Text style={styles.tableCell}>Plate Thickness</Text>
                   </View>
                   <View style={{ flex: 1, alignItems: 'flex-end' }}>

@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const userInputSchema = z
   .object({
+    numberOfBolts: z.number().int().positive(),
     plateThickness: z.number().positive(),
     engagedThreadLength: z.number().positive(),
     externalLoad: z.number().positive(),

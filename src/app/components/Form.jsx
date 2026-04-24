@@ -21,6 +21,9 @@ import InfoTooltip from './InfoTooltip';
 // 1. Define your form schema using Zod
 // Use z.coerce.number to accept numeric input from text fields
 const formSchema = z.object({
+  numberOfBolts: z.coerce.number().int().positive({
+    message: 'Number of bolts must be a positive whole number.',
+  }),
   plateThickness: z.coerce.number().positive({
     message: 'Plate thickness must be a positive number.',
   }),
@@ -49,6 +52,7 @@ export function ProfileForm({ onSubmitForm }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      numberOfBolts: '',
       plateThickness: '',
       externalLoad: '',
       preLoad: '',
@@ -81,6 +85,35 @@ export function ProfileForm({ onSubmitForm }) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="bg-bg-form space-y-6 sm:space-y-8 border-2 rounded-md w-full max-w-full sm:max-w-150 lg:max-w-175 px-4 sm:px-8 md:px-12 lg:px-20 py-6 sm:py-8 lg:py-10"
       >
+        {/* Number of bolts */}
+        <FormField
+          control={control}
+          name="numberOfBolts"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex justify-between items-center">
+                <FormLabel>Number of bolts</FormLabel>
+                <InfoTooltip>
+                  <p>Total number of bolts sharing the joint load.</p>
+                  <p>This value is forwarded to the backend for processing.</p>
+                </InfoTooltip>
+              </div>
+              <FormControl>
+                <Input
+                  type="number"
+                  min="1"
+                  step="1"
+                  placeholder="e.g. 4"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>Whole number greater than zero</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator className="bg-gray-300" />
+
         {/* Plate thickness */}
         <FormField
           control={control}

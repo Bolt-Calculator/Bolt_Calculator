@@ -60,6 +60,7 @@ const obtainedValuesSchema = z
 ------------------------------*/
 const userInputDataSchema = z
   .object({
+    numberOfBolts: z.number().int().positive().optional(),
     plateThickness: z.number().positive(),
     engagedThreadLength: z.number().positive(),
     externalLoad: z.number().nonnegative(),

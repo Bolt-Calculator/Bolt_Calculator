@@ -72,6 +72,20 @@ export default function Dashboard() {
           </span>
           About
         </Link>
+        <Link
+          className={`flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2.5 sm:py-2 text-sm font-medium rounded-md transition-colors ${
+            pathname === '/blogs' || pathname.startsWith('/blogs/')
+              ? 'bg-primary/10 text-primary border-r-2 border-primary'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 active:bg-slate-200 dark:active:bg-slate-700'
+          }`}
+          href="/blogs"
+          onClick={closeMobileMenu}
+        >
+          <span className="material-icons-round text-lg sm:text-[20px]">
+            article
+          </span>
+          Blogs
+        </Link>
 
         <div className="pt-3 sm:pt-4 text-[10px] sm:text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2 sm:px-3 mb-1.5 sm:mb-2">
           Calculators

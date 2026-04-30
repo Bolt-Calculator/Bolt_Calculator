@@ -59,6 +59,12 @@ function NavBar({
             </Link>
             <Link
               className="hover:text-primary transition-colors"
+              href="/blogs"
+            >
+              Blogs
+            </Link>
+            <Link
+              className="hover:text-primary transition-colors"
               href="/about"
             >
               About

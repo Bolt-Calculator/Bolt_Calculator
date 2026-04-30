@@ -6,6 +6,9 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import 'katex/dist/katex.min.css';
+
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -200,6 +203,11 @@
   background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
   background-size: 30px 30px;
   opacity: 0.15;
+}
+
+.technical-grid {
+  background-image: radial-gradient(#c1c6d5 0.5px, transparent 0.5px);
+  background-size: 12px 12px;
 }
 
 .dark .engineering-grid {
